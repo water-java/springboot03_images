@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>书籍列表</title>
+    <script type="text/javascript" th:src="@{/static/js/xxx.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/js/bootstrap3/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/js/bootstrap3/css/bootstrap-theme.min.css}">
+    <script type="text/javascript" th:src="@{/static/js/bootstrap3/js/jquery-1.11.2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/bootstrap3/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<form th:action="@{/teacher/listPager}" method="post">
+    书籍名称： <input type="text" name="tname" />
+    <input type="submit" value="提交"/>
+</form>
+<a th:href="@{/teacher/toEdit}">新增</a>
+<table border="1px" width="600px">
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>头像</td>
+        <td>姓名</td>
+        <td>性别</td>
+        <td>简介</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="teacher : ${teachers}">
+        <td th:text="${teacher.tid}"></td>
+        <td><img style="width: 60px;height: 60px;" id="imgshow" th:src="${teacher.imagePath}" th:alt="${teacher.tname}"/></td>
+        <!--<td th:text="${teacher.imagePath}"></td>-->
+        <td th:text="${teacher.tname}"></td>
+        <td th:text="${teacher.sex}"></td>
+        <td th:text="${teacher.description}"></td>
+        <td>
+            <a th:href="@{'/teacher/del/'+${teacher.tid}}">删除</a>
+            <a th:href="@{'/teacher/toEdit?tid='+${teacher.tid}}">修改</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<nav>
+    <ul class="pagination pagination-sm" th:utext="${pageCode}">
+    </ul>
+
+    <!--<ul class="pagination pagination-sm">-->
+    <!--<form id='pageBeanForm' action='http://localhost:8080/springboot/teacher/listPager' method='post'><input type='hidden' name='page'></form>-->
+    <!--<li><a href='javascript:gotoPage(1)'>首页</a></li>-->
+    <!--<li class='disabled'><a href='javascript:gotoPage(1)'>上一页</a></li>-->
+    <!--<li class='active'><a href='#'>1</a></li>-->
+    <!--<li><a href='javascript:gotoPage(2)'>2</a></li>-->
+    <!--<li><a href='javascript:gotoPage(2)'>下一页</a></li>-->
+    <!--<li><a href='javascript:gotoPage(4)'>尾页</a></li>-->
+    <!--<script type='text/javascript'>	function gotoPage(page) {	document.getElementById('pageBeanForm').page.value = page; document.getElementById('pageBeanForm').submit();	}	function skipPage() {	var page = document.getElementById('skipPage').value;	if(!page || isNaN(page) || parseInt(page)<1 || parseInt(page)>4){ alert('请输入1~N的数字');	return;	}	gotoPage(page);	}</script>-->
+    <!--</ul>-->
+</nav>
+</body>
+</html>

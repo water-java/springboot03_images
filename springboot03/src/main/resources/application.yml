@@ -1,0 +1,59 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+
+
+
+spring:
+  datasource:
+    #1.JDBC
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: 1234
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: true
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filter:
+        stat:
+          merge-sql: true
+          slow-sql-millis: 5000
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+        session-stat-enable: true
+        session-stat-max-count: 100
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: admin
+        login-password: admin
+        allow: 127.0.0.1
+  jpa:
+    hibernate:
+#      \u65B0\u52A0\u5B57\u6BB5\u65F6\u6570\u636E\u5E93\u8868\u4E5F\u6DFB\u52A0\u5B57\u6BB5
+      ddl-auto: update
+    show-sql: true
+
+  thymeleaf:
+    cache: false
+
+    # \u89E3\u51B3\u56FE\u7247\u4E0A\u4F20\u5927\u5C0F\u9650\u5236\u95EE\u9898\uFF0C\u4E5F\u53EF\u91C7\u53D6\u914D\u7F6E\u7C7B
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 60MB
